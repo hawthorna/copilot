@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pendaftaran Psikiatri Forensik (eSPPF)</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+
+            const response = await fetch('/api/registrations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert('Registration added successfully!');
+                event.target.reset();
+            } else {
+                alert('Failed to add registration.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="https://i.postimg.cc/L8PbJ7GJ/Logo-HPJB.png" alt="Logo Hospital Permai">
+                <h2>eSPPF</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="#daftar-baru">Daftar Baru</a></li>
+                <li><a href="#carian">Carian</a></li>
+                <li><a href="#kemaskini">Kemaskini</a></li>
+                <li><a href="#laporan">Laporan</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h1>Sistem Pendaftaran Psikiatri Forensik (eSPPF)</h1>
+                <p>Hospital Permai Johor Bahru</p>
+            </header>
+            
+            <section id="daftar-baru">
+                <h2>Daftar Baru</h2>
+                <form id="registration-form" onsubmit="submitForm(event)">
+                    <label for="consultant">Consultant</label>
+                    <input type="text" id="consultant" name="consultant" required>
+                    
+                    <label for="specialist">Specialist</label>
+                    <input type="text" id="specialist" name="specialist" required>
+
+                    <label for="admitting-hospital">Admitting Approved Hospital</label>
+                    <input type="text" id="admitting-hospital" name="admitting-hospital" required>
+                    
+                    <label for="admission-order">Admission/ Detention Order</label>
+                    <input type="text" id="admission-order" name="admission-order" required>
+
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="ic-number">IC Number</label>
+                    <input type="text" id="ic-number" name="ic-number" required>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
