@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - eSPPF</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        // Fetch all registrations and render them in the table
+        async function fetchRegistrations() {
+            const response = await fetch('/api/registrations');
+            const registrations = await response.json();
+
+            const tableBody = document.querySelector('#registrations-table tbody');
+            tableBody.innerHTML = ''; // Clear the table first
+
+            registrations.forEach((reg, index) => {
+                const row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${reg.name}</td>
+                    <td>${reg.icNumber}</td>
+                    <td>${reg.consultant}</td>
+                    <td>${reg.specialist}</td>
+                    <td>
+                        <button onclick="editRegistration(${index})">Edit</button>
+                        <button onclick="deleteRegistration(${index})">Delete</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Delete registration by ID
+        async function deleteRegistration(id) {
+            const response = await fetch(`/api/registrations/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                alert('Registration deleted successfully');
+                fetchRegistrations();
+            } else {
+                alert('Failed to delete registration');
+            }
+        }
+
+        // Placeholder for editing registration
+        function editRegistration(id) {
+            alert('Edit functionality coming soon! ID: ' + id);
+        }
+
+        // Fetch registrations on page load
+        document.addEventListener('DOMContentLoaded', fetchRegistrations);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="https://i.postimg.cc/L8PbJ7GJ/Logo-HPJB.png" alt="Logo Hospital Permai">
+                <h2>eSPPF</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/">Daftar Baru</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="#laporan">Laporan</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h1>Dashboard</h1>
+                <p>Senarai Pesakit Psikiatri Forensik</p>
+            </header>
+
+            <section>
+                <h2>Registrations</h2>
+                <table id="registrations-table" border="1" cellspacing="0" cellpadding="10">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>IC Number</th>
+                            <th>Consultant</th>
+                            <th>Specialist</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
