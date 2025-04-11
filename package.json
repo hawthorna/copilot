@@ -1,0 +1,26 @@
+{
+  "name": "eSPPF",
+  "version": "1.0.0",
+  "description": "Sistem Pendaftaran Psikiatri Forensik (eSPPF) untuk Hospital Permai Johor Bahru.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "psikiatri",
+    "forensik",
+    "pendaftaran",
+    "hospital"
+  ],
+  "author": "hawthorna",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
